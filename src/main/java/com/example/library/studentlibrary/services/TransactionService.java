@@ -45,6 +45,10 @@ public class TransactionService {
                  throw new Exception("Book is either unavailable or not present");
              }
          }
+         catch (Exception e)
+         {
+             System.out.println(e);
+         }
            // Book b = bookRepository5.findById(bookId).get();
             t.setBook(b);
         //2. card is present and activated
@@ -55,6 +59,10 @@ public class TransactionService {
                 throw new Exception("Card is invalid");
             }
         }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
        // Card c = cardRepository5.findById(cardId).get();
         t.setCard(c);
         //3. number of books issued against the card is strictly less than max_allowed_books
@@ -63,6 +71,10 @@ public class TransactionService {
             if (c.getBooks().size() > max_allowed_books) {
                 throw new Exception("Book limit has reached for this card");
             }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
         }
         //If the transaction is successful, save the transaction to the list of transactions and return the id
             t.setTransactionStatus(TransactionStatus.SUCCESSFUL);
