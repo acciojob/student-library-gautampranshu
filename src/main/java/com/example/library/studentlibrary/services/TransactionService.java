@@ -33,7 +33,8 @@ public class TransactionService {
     @Value("${books.fine.per_day}")
     int fine_per_day;
 
-    public String issueBook(int cardId, int bookId) throws Exception {
+    //public String issueBook(int cardId, int bookId) throws Exception {
+    public String issueBook(int cardId, int bookId){
 //        Transaction t = new Transaction();
 //        //check whether bookId and cardId already exist
 //        //conditions required for successful transaction of issue book:
@@ -86,7 +87,8 @@ public class TransactionService {
         //return t.getTransactionId();
     }
 
-    public Transaction returnBook(int cardId, int bookId) throws Exception{
+    //public Transaction returnBook(int cardId, int bookId) throws Exception{
+    public Transaction returnBook(int cardId, int bookId){
 
         List<Transaction> transactions = transactionRepository5.find(cardId, bookId,TransactionStatus.SUCCESSFUL, true);
         Transaction transaction = transactions.get(transactions.size() - 1);
