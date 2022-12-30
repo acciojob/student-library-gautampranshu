@@ -34,19 +34,38 @@ public class TransactionService {
     int fine_per_day;
 
     public String issueBook(int cardId, int bookId) throws Exception {
+        Transaction t = new Transaction();
         //check whether bookId and cardId already exist
         //conditions required for successful transaction of issue book:
         //1. book is present and available
         // If it fails: throw new Exception("Book is either unavailable or not present");
+        Book b = bookRepository5.findById(bookId).get();
+            if (!bookRepository5.existsById(bookId) || !b.isAvailable()) {
+                throw new Exception("Book is either unavailable or not present");
+            }
+            t.setBook(b);
         //2. card is present and activated
         // If it fails: throw new Exception("Card is invalid");
+        Card c = cardRepository5.findById(cardId).get();
+        if(!cardRepository5.existsById(cardId) || c.getCardStatus().toString().equals("Deactivated"))
+        {
+            throw new Exception("Card is invalid");
+        }
+        t.setCard(c);
         //3. number of books issued against the card is strictly less than max_allowed_books
         // If it fails: throw new Exception("Book limit has reached for this card");
+        if(c.getBooks().size() > max_allowed_books)
+        {
+            throw new Exception("Book limit has reached for this card");
+        }
         //If the transaction is successful, save the transaction to the list of transactions and return the id
-
+            t.setTransactionStatus(TransactionStatus.SUCCESSFUL);
+            t.setIssueOperation(true);
+            transactionRepository5.save(t);
         //Note that the error message should match exactly in all cases
 
-       return null; //return transactionId instead
+      // return null; //return transactionId instead
+        return t.getTransactionId();
     }
 
     public Transaction returnBook(int cardId, int bookId) throws Exception{
@@ -55,6 +74,7 @@ public class TransactionService {
         Transaction transaction = transactions.get(transactions.size() - 1);
 
         //for the given transaction calculate the fine amount considering the book has been returned exactly when this function is called
+
         //make the book available for other users
         //make a new transaction for return book which contains the fine amount as well
 
