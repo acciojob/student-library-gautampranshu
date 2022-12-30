@@ -18,7 +18,7 @@ public class AuthorController {
 
     @Autowired
     AuthorService as;
-    @PostMapping("/author")
+    @PostMapping("/author/")
     public ResponseEntity<String> addAuthor(@RequestBody Author a)
     {
         as.create(a);
