@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 //Add required annotations
 @RestController
-@RequestMapping("student")
+//@RequestMapping("student")
 public class StudentController {
 
     @Autowired
     StudentService ss;
     //Add required annotations
-    @GetMapping("/studentByEmail")
+    @GetMapping("/student/studentByEmail")
     public ResponseEntity<Student> getStudentByEmail(@RequestParam("email") String email){
         Student s = ss.getDetailsByEmail(email);
         return new ResponseEntity<>(s, HttpStatus.OK);
@@ -23,7 +23,7 @@ public class StudentController {
     }
 
     //Add required annotations
-    @GetMapping("/studentById")
+    @GetMapping("/student/studentById")
     public ResponseEntity<Student> getStudentById(@RequestParam("id") int id){
         Student s = ss.getDetailsById(id);
        // return new ResponseEntity<>("Student details printed successfully ", HttpStatus.OK);
@@ -31,21 +31,21 @@ public class StudentController {
     }
 
     //Add required annotations
-    @PostMapping("/createStudent")
+    @PostMapping("/student")
     public ResponseEntity<String> createStudent(@RequestBody Student student){
         ss.createStudent(student);
         return new ResponseEntity<>("the student is successfully added to the system", HttpStatus.CREATED);
     }
 
     //Add required annotations
-    @PutMapping("/updateStudent")
+    @PutMapping("/student")
     public ResponseEntity<String> updateStudent(@RequestBody Student student){
         ss.updateStudent(student);
         return new ResponseEntity<>("student is updated", HttpStatus.ACCEPTED);
     }
 
     //Add required annotations
-    @DeleteMapping("/deleteStudent")
+    @DeleteMapping("/student")
     public ResponseEntity<String> deleteStudent(@RequestParam("id") int id){
         ss.deleteStudent(id);
         return new ResponseEntity<>("student is deleted", HttpStatus.ACCEPTED);
