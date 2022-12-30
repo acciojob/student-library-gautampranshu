@@ -39,24 +39,30 @@ public class TransactionService {
         //conditions required for successful transaction of issue book:
         //1. book is present and available
         // If it fails: throw new Exception("Book is either unavailable or not present");
-        Book b = bookRepository5.findById(bookId).get();
-            if (!bookRepository5.existsById(bookId) || !b.isAvailable()) {
-                throw new Exception("Book is either unavailable or not present");
-            }
+         Book b = bookRepository5.findById(bookId).get();
+         try {
+             if (!bookRepository5.existsById(bookId) || !b.isAvailable()) {
+                 throw new Exception("Book is either unavailable or not present");
+             }
+         }
+           // Book b = bookRepository5.findById(bookId).get();
             t.setBook(b);
         //2. card is present and activated
         // If it fails: throw new Exception("Card is invalid");
         Card c = cardRepository5.findById(cardId).get();
-        if(!cardRepository5.existsById(cardId) || c.getCardStatus().toString().equals("Deactivated"))
-        {
-            throw new Exception("Card is invalid");
+        try {
+            if (!cardRepository5.existsById(cardId) || c.getCardStatus().toString().equals("Deactivated")) {
+                throw new Exception("Card is invalid");
+            }
         }
+       // Card c = cardRepository5.findById(cardId).get();
         t.setCard(c);
         //3. number of books issued against the card is strictly less than max_allowed_books
         // If it fails: throw new Exception("Book limit has reached for this card");
-        if(c.getBooks().size() > max_allowed_books)
-        {
-            throw new Exception("Book limit has reached for this card");
+        try {
+            if (c.getBooks().size() > max_allowed_books) {
+                throw new Exception("Book limit has reached for this card");
+            }
         }
         //If the transaction is successful, save the transaction to the list of transactions and return the id
             t.setTransactionStatus(TransactionStatus.SUCCESSFUL);
