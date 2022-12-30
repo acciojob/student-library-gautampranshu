@@ -6,6 +6,7 @@ import com.example.library.studentlibrary.repositories.CardRepository;
 import com.example.library.studentlibrary.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Component
 public class TransactionService {
 
     @Autowired
@@ -33,8 +35,7 @@ public class TransactionService {
     @Value("${books.fine.per_day}")
     int fine_per_day;
 
-    //public String issueBook(int cardId, int bookId) throws Exception {
-    public String issueBook(int cardId, int bookId){
+    public String issueBook(int cardId, int bookId) throws Exception {
 //        Transaction t = new Transaction();
 //        //check whether bookId and cardId already exist
 //        //conditions required for successful transaction of issue book:
@@ -87,8 +88,7 @@ public class TransactionService {
         //return t.getTransactionId();
     }
 
-    //public Transaction returnBook(int cardId, int bookId) throws Exception{
-    public Transaction returnBook(int cardId, int bookId){
+    public Transaction returnBook(int cardId, int bookId) throws Exception{
 
         List<Transaction> transactions = transactionRepository5.find(cardId, bookId,TransactionStatus.SUCCESSFUL, true);
         Transaction transaction = transactions.get(transactions.size() - 1);

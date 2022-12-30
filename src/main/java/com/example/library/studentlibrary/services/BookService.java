@@ -4,11 +4,13 @@ import com.example.library.studentlibrary.models.Book;
 import com.example.library.studentlibrary.models.Genre;
 import com.example.library.studentlibrary.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Component
 public class BookService {
 
     @Autowired
