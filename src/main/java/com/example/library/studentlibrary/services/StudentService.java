@@ -33,6 +33,7 @@ public class StudentService {
 
     public void createStudent(Student student){
         studentRepository4.save(student);
+        cardService4.createAndReturn(student); // added newly just to check
     }
 
     public void updateStudent(Student student){

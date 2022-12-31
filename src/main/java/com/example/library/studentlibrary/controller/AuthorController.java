@@ -14,15 +14,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 //Add required annotations
 @RestController
+@RequestMapping("author")
 public class AuthorController {
 
     @Autowired
     AuthorService as;
-    @PostMapping("/author/")
+    @PostMapping("")
     public ResponseEntity<String> addAuthor(@RequestBody Author a)
     {
-        as.create(a);
+        //as.create(a);
         //return new RequestEntity<>("author is successfully added" , HttpStatus.CREATED);
+        try {
+            as.create(a);
+        }catch (Exception e){
+            return new ResponseEntity("Not Success", HttpStatus.BAD_GATEWAY);
+        }
+
+       // return new ResponseEntity<>("Success", HttpStatus.OK);
         return new ResponseEntity<>("author is successfully added" , HttpStatus.CREATED);
     }
     //RequestEntity likha tha
